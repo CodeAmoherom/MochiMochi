@@ -24,7 +24,7 @@ Feel free to modify and customize the bot as you please. If you make any signifi
 
 ## Sponsors
 
-We welcome sponsors to support the development and maintenance of MochiMochi. Your contributions help us continue to enhance the bot's features and provide ongoing support to the community.
+We welcome sponsors to support the development and maintenance of MochiMochi. Your contributions help us continue to enhance the bot's features and provide ongoing support to the community. [Sponsor](https://bmc.link/Tecxick)
 
 ## Contributing
 
