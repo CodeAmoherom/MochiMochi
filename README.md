@@ -15,9 +15,8 @@ MochiMochi is designed to run in [Replit](https://replit.com/) for easy setup an
 1. Import the project into your Replit workspace.
 2. Set up your Discord bot token and other configurations in the Replit Secrets.<br>
       a. CLIENT_ID - Your Discord Application Client ID<br>
-      b. CLIENT_SECRET - The Client Secret  In your Discorf Application<br>
-      d. TOKEN - Discord Bot Token<br>
-      e. DEV_CHANNEL - The channel id that receives errors and login status.<br>
+      b. TOKEN - Discord Bot Token<br>
+      c. DEV_CHANNEL - The channel id that receives errors and login status.<br>
 3. Customize the bot's conversations in the `conversations.js` file.
 4. Start the bot by clicking the RUN on Replit.
 
