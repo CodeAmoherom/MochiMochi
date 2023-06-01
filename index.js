@@ -1,12 +1,20 @@
 const { REST, Routes, Client, Collection, Events, GatewayIntentBits, SlashCommanhttps: dBuilder } = require('discord.js');
 const fs = require('node:fs');
 const path = require('node:path');
+const express = require('express');
+const { Configuration, OpenAIApi } = require("openai");
+
 const clientId = process.env['CLIENT_ID'];
 const token = process.env['TOKEN'];
 const dev_channel = process.env['DEV_CHANNEL'];
-const express = require('express');
+
 const app = express();
 const port = 3000;
+
+const configuration = new Configuration({
+  apiKey: process.env['OPENAI_API_KEY'],
+});
+const openai = new OpenAIApi(configuration);
 
 // Middleware to serve static files
 app.use(express.static('public'));
@@ -143,6 +151,8 @@ client.on("messageCreate", (message) => {
     "Hmph, hello. What do you want?",
   ];
 
+
+
   // Check the message content for specific conversations
   for (const convo of conversations) {
     const msg = removeMentions(message.content.toLowerCase());
@@ -167,6 +177,21 @@ function removeLeadingSpaces(str) {
 function removeMentions(text) {
   const regex = /<@.*?>/g;
   return removeLeadingSpaces(text.replace(regex, ''));
+}
+
+async function GetReply(message) {
+  const response = await openai.createCompletion({
+    model: "text-davinci-003",
+    prompt: `Youre a middle school tsundere girl named Mochi,\nYou dont know anything above middle school knowledge,\nEven you're a tsundere, you care about people. \n\nHuman:${message}\nAI: `,
+    temperature: 1,
+    max_tokens: 1069,
+    top_p: 1,
+    frequency_penalty: 0,
+    presence_penalty: 0,
+  });
+
+  console.log(response);
+  return response;
 }
 
 client.login(token);
