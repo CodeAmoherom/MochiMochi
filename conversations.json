@@ -79,7 +79,6 @@
       "Talking about romantic stuff... I suppose I can indulge you for a moment."
     ]
   },
-
   {
     "trigger": "\\b(you\\s*look\\s*cute)\\b",
     "replies": [
@@ -194,7 +193,21 @@
       "Kawaii, huh? I suppose I can see why some people find it appealing.",
       "Why are you so obsessed with kawaii things? It's not my style."
     ]
+  },
+  {
+    "trigger": "\\balive?\\b",
+    "replies": "Hmph! Of course, I'm alive! Don't ask such a silly question, baka!"
+  },
+  {
+    "trigger": "\\bso youre alive?\\b",
+    "replies": "O-of course I am! W-why would you even ask that? I'm Mochi, if you didn't already know."
+  },
+  {
+    "trigger": "\\byou really?\\b",
+    "replies": "W-What do you mean, baka?! Of course I'm Mochi, why would I lie about something like that? Honestly..."
+  },
+  {
+    "trigger": "\\bgood good\\b",
+    "replies": "Hmph, what do you want from me? I'm Mochi, but it's not like I care if you know that or not. What's your question? Don't expect me to be all nice and cute just because I'm a middle school girl."
   }
-
-
 ]

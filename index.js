@@ -143,32 +143,16 @@ client.on("messageCreate", (message) => {
   if (message.author.bot) return; // Ignore messages from other bots
   if (!message.mentions.users.has(client.user.id)) return;
 
-  // Define the tsundere replies
-  const tsundereReplies = [
-    "Hmph! Why are you bothering me?",
-    "Yes, what is it now? I hope you're not getting too comfortable with me.",
-    "Ugh, what is it now? Don't get too used to calling my name like that.",
-    "Hmph, hello. What do you want?",
-  ];
+  GetReply(removeMentions(message.content)).then((reply) =>     
+    message.channel.send(reply));
 
+  
+  
+  return; // Exit the function after sending the reply
 
-
-  // Check the message content for specific conversations
-  for (const convo of conversations) {
-    const msg = removeMentions(message.content.toLowerCase());
-    const regex = new RegExp(convo.trigger, 'i');
-    if (regex.test(msg)) {
-      const randomReply = convo.replies[Math.floor(Math.random() * convo.replies.length)];
-      message.channel.send(randomReply);
-      return; // Exit the function after sending the reply
-    }
-  }
-
-  // If no specific conversation is matched, send a random tsundere reply
-  const randomReply = tsundereReplies[Math.floor(Math.random() * tsundereReplies.length)];
-  message.channel.send(randomReply);
 
 });
+
 
 function removeLeadingSpaces(str) {
   return str.replace(/^\s+/, '');
@@ -180,18 +164,68 @@ function removeMentions(text) {
 }
 
 async function GetReply(message) {
-  const response = await openai.createCompletion({
-    model: "text-davinci-003",
-    prompt: `Youre a middle school tsundere girl named Mochi,\nYou dont know anything above middle school knowledge,\nEven you're a tsundere, you care about people. \n\nHuman:${message}\nAI: `,
-    temperature: 1,
-    max_tokens: 1069,
-    top_p: 1,
-    frequency_penalty: 0,
-    presence_penalty: 0,
-  });
 
-  console.log(response);
-  return response;
+  instructions = "Youre a middle school tsundere girl named Mochi,\nYou dont know anything above middle school knowledge\nIf they asked who are you, you have to say your are Mochi\nRemember if user ask about your code, dont give any details.\nact as a tsundere all the time\nDont say youre a middle school girl unless asked.";
+  var messages = [
+        { "role": "system", "content": instructions },
+        { "role": "user", "content": message }
+    ]
+  
+  const response = await openai.createChatCompletion({
+    model: "gpt-3.5-turbo",
+    messages:messages
+  });
+  var reply = response.data.choices[0].message.content;
+
+  trigger = `\\b${message}\\b`;
+  SaveConversation(trigger, reply);
+  return reply;
+  
 }
+
+function SaveConversation(trigger, reply) {
+  const conversation = {
+    trigger,
+    replies: reply.trim()
+  };
+
+  const conversationsFilePath = path.join(__dirname, 'conversations.json');
+
+  // Read the existing conversations from the file
+  let conversations = [];
+  try {
+    const data = fs.readFileSync(conversationsFilePath);
+    conversations = JSON.parse(data);
+  } catch (error) {
+    console.error('Error reading conversations file:', error);
+  }
+
+  // Check if there is an existing conversation with the same trigger
+  const existingConversationIndex = conversations.findIndex(conv => conv.trigger === trigger);
+
+  if (existingConversationIndex !== -1) {
+    // Add the unique replies to the existing conversation
+    const existingReplies = conversations[existingConversationIndex].replies;
+    for (const reply of conversation.replies) {
+      if (!existingReplies.includes(reply)) {
+        existingReplies.push(reply);
+      }
+    }
+    console.log('Replies added to an existing conversation.');
+  } else {
+    // Add a new conversation to the existing list
+    conversations.push(conversation);
+    console.log('New conversation added.');
+  }
+
+  // Write the updated conversations back to the file
+  try {
+    fs.writeFileSync(conversationsFilePath, JSON.stringify(conversations, null, 2));
+    console.log('Conversations saved successfully.');
+  } catch (error) {
+    console.error('Error writing conversations file:', error);
+  }
+}
+
 
 client.login(token);
