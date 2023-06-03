@@ -12,6 +12,7 @@ MochiMochi is a fun and interactive Discord bot built with Node.js. It allows yo
 
 MochiMochi is designed to run in [Replit](https://replit.com/) for easy setup and deployment. Follow these steps to get started:
 
+### MochiMochi Simple AI version
 1. Import the project into your Replit workspace.
 2. Set up your Discord bot token and other configurations in the Replit Secrets.<br>
       a. CLIENT_ID - Your Discord Application Client ID<br>
@@ -20,7 +21,17 @@ MochiMochi is designed to run in [Replit](https://replit.com/) for easy setup an
 3. Customize the bot's conversations in the `conversations.js` file.
 4. Start the bot by clicking the RUN on Replit.
 
-Feel free to modify and customize the bot as you please. If you make any significant changes, consider forking the project before making modifications to keep a separate copy of your changes.
+### MochiMochi with OpenAI API
+1. Import the project into your Replit workspace.
+2. Set up your Discord bot token and other configurations in the Replit Secrets.<br>
+      a. CLIENT_ID - Your Discord Application Client ID<br>
+      b. TOKEN - Discord Bot Token<br>
+      c. DEV_CHANNEL - The channel id that receives errors and login status.<br>
+      d. OPENAI_API_KEY - Get an API key from open API (It will grant free $5 for the first time users)
+3. You can change the bot instructions as you needed, the bot will work according to your instructions.
+4. Start the bot by clicking the RUN on Replit.
+
+Feel free to modify and customize the bot as you please. If you make any changes, consider forking the project before making modifications to keep a separate copy of your changes.
 
 ## Sponsors
 
