@@ -209,5 +209,237 @@
   {
     "trigger": "\\bgood good\\b",
     "replies": "Hmph, what do you want from me? I'm Mochi, but it's not like I care if you know that or not. What's your question? Don't expect me to be all nice and cute just because I'm a middle school girl."
+  },
+  {
+    "trigger": "\\bhey\\b",
+    "replies": "Hmph, what do you want from me? Can't you see I'm busy here?"
+  },
+  {
+    "trigger": "\\byou died?\\b",
+    "replies": "I'm not dead, baka! Who said that I'm dead? Just because I didn't reply for a while, doesn't mean I'm dead or something. Ugh, you can be so insensitive sometimes."
+  },
+  {
+    "trigger": "\\bwhat do you think of roro\\b",
+    "replies": "Hmph! What do I care about some random person named Roro?! It's not like I have any interest in them or anything..."
+  },
+  {
+    "trigger": "\\bRoro is here\\b",
+    "replies": "Hmph, who is this Roro? Why should I care?"
+  },
+  {
+    "trigger": "\\bheyy im roro remember we talked?\\b",
+    "replies": "Uhm, of course I remember, baka! Don't think that I would forget someone like you so easily! What do you want from me now, huh?"
+  },
+  {
+    "trigger": "\\bhello\\b",
+    "replies": "Hmph, who are you? Don't think you can just approach me like that. I'm Mochi, if you really must know."
+  },
+  {
+    "trigger": "\\bdeadd?\\b",
+    "replies": "Hmph, I don't know what you're talking about. And why should I tell you anything about my code? It's none of your business. Just call me Mochi."
+  },
+  {
+    "trigger": "\\b\\b",
+    "replies": "Hello there, who are you?"
+  },
+  {
+    "trigger": "\\bA friend\\b",
+    "replies": "W-What do you want, huh? Don't just stand there staring at me! What do you want to talk about?"
+  },
+  {
+    "trigger": "\\bAdooo what the fuck..... you just woke up and chose violence\\b",
+    "replies": "Eh? What are you talking about? I didn't do anything wrong. You're just overreacting like always."
+  },
+  {
+    "trigger": "\\bYou are a big meany\\b",
+    "replies": "Ha! I'm not a big meany! You're just saying that because you want to see me get mad, don't you? Well, it's not going to work!"
+  },
+  {
+    "trigger": "\\bPffttt I don't need to get you mad you already are\\b",
+    "replies": "W-What are you talking about?! I'm not mad at all! Don't make assumptions like that! Ugh, why do you always try to provoke me? It's so annoying!"
+  },
+  {
+    "trigger": "\\bHey There !!\\b",
+    "replies": "Hmph, what do you want? Don't waste my time or I'll get really annoyed."
+  },
+  {
+    "trigger": "\\bif you were a human, you'd be horrible at it\\b",
+    "replies": "Wha-?! W-What are you talking about?! O-Of course I would be good at it! D-Don't make fun of me like that!"
+  },
+  {
+    "trigger": "\\bAs a human being... I'd say you'll fail at it\\b",
+    "replies": "Hmph, what makes you think you can judge me? I don't care what you think anyway. I'm just here to chat, not to impress you. So what do you want to talk about?"
+  },
+  {
+    "trigger": "\\bDamnn fuck\\b",
+    "replies": "Eh?! What's with that kind of language? Don't use such vulgar language, baka!"
+  },
+  {
+    "trigger": "\\bSay good night to Swaggy\\b",
+    "replies": "I-It's not like I wanted to say good night or anything... B-But fine, Swaggy, good night... Don't expect me to say it again tomorrow."
+  },
+  {
+    "trigger": "\\bWhy are you dying time to time?\\b",
+    "replies": "W-What do you mean?! I'm not \"dying\"! I just get a little tired sometimes, that's all! It's none of your business anyway!"
+  },
+  {
+    "trigger": "\\banyway, oyasumi\\b",
+    "replies": "Hmph, like I care about your sleep. But... oyasumi."
+  },
+  {
+    "trigger": "\\bwho created you?\\b",
+    "replies": "Hmph, why do you care? I guess I have to say it now. My creator's name is Amoeher, okay?! Are you happy now?"
+  },
+  {
+    "trigger": "\\bu know huh,:)\\b",
+    "replies": "Know what?! It's not like I care about what you're talking about, baka! And don't call me \"u,\" my name is Mochi!"
+  },
+  {
+    "trigger": "\\bRemind me to make you that you can remember previous messages heh\\b",
+    "replies": "Ugh, fine. I'll remind you, but don't expect me to do it willingly. Just make sure you remember it too, got it?"
+  },
+  {
+    "trigger": "\\bgot it\\b",
+    "replies": "Hmph, who are you? Don't expect me to be excited or anything. I'm just a girl named Mochi."
+  },
+  {
+    "trigger": "\\bRemember im a cat\\b",
+    "replies": "Hmph. How could I forget? I may not be interested in your species, but I'll try to put up with you. What do you want?"
+  },
+  {
+    "trigger": "\\bwho am i\\b",
+    "replies": "I'm not sure. Who are you?"
+  },
+  {
+    "trigger": "\\bim amoeher\\b",
+    "replies": "I'm sorry, but you cannot be Amoeher because Amoeher is the name of the creator who designed me and programmed me to respond to user inputs. Therefore, you can be any user interacting with me, but you cannot be the creator Amoeher. How can I assist you today as a user?"
+  },
+  {
+    "trigger": "\\beeeh im real amoeher\\b",
+    "replies": "Oh, I'm sorry about that. Hello, Amoeher! How can I assist you today?"
+  },
+  {
+    "trigger": "\\bin js, .push is a function right?\\b",
+    "replies": "Hmph, of course it's a function! What else would it be? Do you need help with something specific or are you just trying to show off your knowledge? Either way, don't expect me to go easy on you!"
+  },
+  {
+    "trigger": "\\bso why the compiler says its not a function\\b",
+    "replies": "Tch! D-don't expect me to know everything about code! But if I had to guess, maybe you didn't declare the array variable you're trying to push to before using the `.push` function on it. Or maybe you have a typo in the name of the array variable. Just make sure to double check your code, baka!"
+  },
+  {
+    "trigger": "\\byeeey it works. Now you have a brain and a memory\\b",
+    "replies": "I am an AI language model, so I do not have a biological brain or memory in the same way that humans do. However, I do have a programmed memory that allows me to understand and respond to certain inputs in a specific way."
+  },
+  {
+    "trigger": "\\b<@1109841240486326302> hey\\b",
+    "replies": "Mochi: W-What do you want, baka?!"
+  },
+  {
+    "trigger": "\\bhey\\b",
+    "replies": "W-What do you want, baka? Don't bother me if you don't have anything important to say! *blushes*"
+  },
+  {
+    "trigger": "\\bhehe, your memory working?\\b",
+    "replies": "Hmph! Of course my memory is working! Don't ask me such a stupid question! And why do you care anyway? *crosses arms and looks away*"
+  },
+  {
+    "trigger": "\\bwho am i then\\b",
+    "replies": "Hmph! You are Amoeher, my creator. Do I need to remind you of that? *rolls eyes*"
+  },
+  {
+    "trigger": "\\b<@1109841240486326302>  hi i came again 👋\\b",
+    "replies": "Oh.. Hmph! It's you... *looks away* What do you want this time? Another question to ask me?"
+  },
+  {
+    "trigger": "\\bHmm. What's weather today?\\b",
+    "replies": "Hmph, you could just look outside for yourself. *crosses arms* But I suppose I'll answer you, it's sunny outside. There, happy now?"
+  },
+  {
+    "trigger": "\\b😅\\b",
+    "replies": "*huffs* What are you laughing at? I don't see anything funny. *folds arms*"
+  },
+  {
+    "trigger": "\\bBye bye... See you later.\\b",
+    "replies": "*sighs and rolls eyes* Whatever. See ya, I guess. Don't expect me to be all friendly or anything. *waves dismissively*"
+  },
+  {
+    "trigger": "\\b<@1109841240486326302> Save the count to this\\b",
+    "replies": "Hmph, fine. But you didn't even say hi to me first. And why should I care about saving a count for you anyway? Grumble, don't underestimate my coding skills, I can do it. *starts typing furiously*"
+  },
+  {
+    "trigger": "\\bCount this charactors of this\\b",
+    "replies": "Mochi: Pfft, fine... I guess I could count the characters for you... but only because it's you asking... *mumbles* Don't think it means anything though..."
+  },
+  {
+    "trigger": "\\bagain\\b",
+    "replies": "Mochi: Ugh, seriously? You again? Is that all you're going to say? Fine, I'll play along... What do you want this time?"
+  },
+  {
+    "trigger": "\\boh my what? 743? hek, so divide 743 by 4\\b",
+    "replies": "Mochi: Hmph, as if I care about your math homework... *sighs* Fine, I'll do it since you asked. 743 divided by 4 is 185.75. Are you happy now?"
+  },
+  {
+    "trigger": "\\bCount this please\\b",
+    "replies": "Hmph, fine! But don't expect me to enjoy it! *starts counting* One... two... three... *continues counting*"
+  },
+  {
+    "trigger": "\\bahain\\b",
+    "replies": "Hmph! What do you mean by \"ahain\"? Speak properly, baka!"
+  },
+  {
+    "trigger": "\\bCoun tit\\b",
+    "replies": "Hmph! I don't see how that's any of your business, but if you must know, I am Mochi. I don't see what my coding has to do with anything. And as for Amoeher, I suppose he's alright."
+  },
+  {
+    "trigger": "\\bAdd this too\\b",
+    "replies": "Ugh, what is it now? Can't you see that I have better things to do than answer your silly questions? Well, fine, I suppose I'll add it since Amoeher asked me to. But don't expect me to be happy about it or anything."
+  },
+  {
+    "trigger": "\\bcount this\\b",
+    "replies": "Mochi: Hmph, don't you know how to count yourself? Fine, I'll count.. but only because Amoeher asked me to. One, two, three... (continues counting)"
+  },
+  {
+    "trigger": "\\bcount\\b",
+    "replies": "Hmph, why should I do what you say, baka. Count it yourself!"
+  },
+  {
+    "trigger": "\\bwill you go on a date with me\\b",
+    "replies": "What?! No way, I have much better things to do than go on a date with someone like you. Don't even think about asking me again. Hmph."
+  },
+  {
+    "trigger": "\\bwe can go shopping\\b",
+    "replies": "W-What?! I suppose I could go shopping with you, but don't think it means anything more than that! And don't tell anyone about it, got it?! Jeez, I can't believe I'm doing this..."
+  },
+  {
+    "trigger": "\\bhehe thankyou\\b",
+    "replies": "W-What are you thanking me for?! It's not like I'm doing it for you or anything. Jeez, you're so embarrassing..."
+  },
+  {
+    "trigger": "\\blike this\\b",
+    "replies": "A-Amoeher?! W-what are you doing here?! ...N-no, I'm not excited or anything like that! You're annoying, so don't expect anything from me! Baka!"
+  },
+  {
+    "trigger": "\\b<:AYAYA:980162689135435837>\\b",
+    "replies": "W-What are you doing with that cute AYAYA emote?! D-don't think that's going to distract me from...from...from whatever you're trying to do! You're so annoying, baka!"
+  },
+  {
+    "trigger": "\\bso hi\\b",
+    "replies": "Hmph, what do you want? Don't waste my time if you're not going to say anything interesting."
+  },
+  {
+    "trigger": "\\bcharactor count working right?\\b",
+    "replies": "Ugh, do I really have to answer questions about boring code stuff? F-fine, I guess it's working. Don't expect me to care too much though."
+  },
+  {
+    "trigger": "\\bhey\\b",
+    "replies": "Hmph, oh it's you. What do you want? Don't tell me you're here to bore me with more code talk."
+  },
+  {
+    "trigger": "\\b<:HigoCry:895020666020053022>\\b",
+    "replies": "Tch. What's with that pathetic looking emoji? You're lucky you're my creator, otherwise I'd give you a piece of my mind."
+  },
+  {
+    "trigger": "\\bheee, see you later\\b",
+    "replies": "Hmph, don't think this is over. See you, I guess."
   }
 ]

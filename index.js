@@ -7,6 +7,7 @@ const { Configuration, OpenAIApi } = require("openai");
 const clientId = process.env['CLIENT_ID'];
 const token = process.env['TOKEN'];
 const dev_channel = process.env['DEV_CHANNEL'];
+const message_stack_size = 6;
 
 const app = express();
 const port = 3000;
@@ -136,21 +137,32 @@ client.on(Events.InteractionCreate, async interaction => {
 
 client.on("messageCreate", (message) => {
 
-  // Read conversations from JSON file
-  const rawdata = fs.readFileSync('conversations.json');
-  const conversations = JSON.parse(rawdata);
-
   if (message.author.bot) return; // Ignore messages from other bots
   if (!message.mentions.users.has(client.user.id)) return;
-
-  GetReply(removeMentions(message.content)).then((reply) =>     
-    message.channel.send(reply));
-
-  
+  var user_name = "";
+  try{
+    if (message.author.id === '617690320276160512')
+    {
+      user_name = "Amoeher";
+    }
+    else
+    {
+      user_name = message.author.username;
+    }
+    
+    GetReply(removeMentions( user_name.concat(":",message.content))).then((reply) =>  
+    {
+    message.channel.send(reply.replace('Mochi: ',''));
+    var trigger = `\\b${removeMentions(message.content)}\\b`;
+    SaveConversation(trigger, reply);
+    });
+  }
+  catch
+  {
+    console.log("Something wornmg happened");
+  }
   
   return; // Exit the function after sending the reply
-
-
 });
 
 
@@ -163,27 +175,75 @@ function removeMentions(text) {
   return removeLeadingSpaces(text.replace(regex, ''));
 }
 
-async function GetReply(message) {
+var messages = [];
 
-  instructions = "Youre a middle school tsundere girl named Mochi,\nYou dont know anything above middle school knowledge\nIf they asked who are you, you have to say your are Mochi\nRemember if user ask about your code, dont give any details.\nact as a tsundere all the time\nDont say youre a middle school girl unless asked.";
-  var messages = [
-        { "role": "system", "content": instructions },
-        { "role": "user", "content": message }
-    ]
+function pushMessage(role, content) {
+  try{
+  if (messages.length >= message_stack_size) {
+    messages.shift(); // Remove the oldest message if the stack is full
+  }
+  messages.push({ "role": role, "content": content });
+  }
+  catch{
+    console.log("Cannot Save the message");
+    console.log(messages);
+  }
+}
+
+async function GetReply(message) {
+  instructions = "Youre a middle school tsundere girl named Mochi,\nIf they asked who are you, you have to say your are Mochi\nIf user ask about your code, dont give any details.\nact as a tsundere all the time\nDont say youre a middle school girl unless asked.\nYour creator is Amoeher and you love him and be nice to him.\nthe messages are formatted as this username:users question";
+
+  pushMessage("system", instructions); // Add a system message
+  pushMessage("user", message);
   
   const response = await openai.createChatCompletion({
     model: "gpt-3.5-turbo",
     messages:messages
   });
-  var reply = response.data.choices[0].message.content;
 
-  trigger = `\\b${message}\\b`;
-  SaveConversation(trigger, reply);
+  var reply = response.data.choices[0].message.content;
+  pushMessage("assistant", reply); // Add an assistant message
+  updateChrCount(countConversation(messages));
   return reply;
   
 }
 
+function countConversation(conve){
+  let characterCount = 0;
+
+  conve.forEach((message) => {
+    characterCount += message.content.length;
+  });
+
+  return characterCount;
+}
+
+function updateChrCount(numberOfCharactors){
+  const filePath = 'character_count.txt';
+  fs.readFile(filePath, 'utf8', (error, data) => {
+    if (error) {
+      console.error('Failed to read character count file:', error);
+      return;
+    }
+
+    console.log('New Count: ', numberOfCharactors);
+    const currentCount = parseInt(data) || 0;
+    console.log('Old Count: ', currentCount);
+    
+    const totalCount = currentCount + numberOfCharactors;
+
+    fs.writeFile(filePath, totalCount.toString(), (error) => {
+      if (error) {
+        console.error('Failed to update character count file:', error);
+      } else {
+        console.log('Character count updated:', totalCount);
+      }
+    });
+  });
+}
+
 function SaveConversation(trigger, reply) {
+  console.log("Saving Conversation");
   const conversation = {
     trigger,
     replies: reply.trim()
@@ -193,14 +253,16 @@ function SaveConversation(trigger, reply) {
 
   // Read the existing conversations from the file
   let conversations = [];
+  
   try {
     const data = fs.readFileSync(conversationsFilePath);
     conversations = JSON.parse(data);
-  } catch (error) {
+  } 
+  catch (error) {
     console.error('Error reading conversations file:', error);
   }
 
-  // Check if there is an existing conversation with the same trigger
+ /* // Check if there is an existing conversation with the same trigger
   const existingConversationIndex = conversations.findIndex(conv => conv.trigger === trigger);
 
   if (existingConversationIndex !== -1) {
@@ -209,23 +271,27 @@ function SaveConversation(trigger, reply) {
     for (const reply of conversation.replies) {
       if (!existingReplies.includes(reply)) {
         existingReplies.push(reply);
+        
       }
     }
     console.log('Replies added to an existing conversation.');
-  } else {
+  } else {*/
     // Add a new conversation to the existing list
     conversations.push(conversation);
     console.log('New conversation added.');
-  }
+ // }
 
   // Write the updated conversations back to the file
   try {
     fs.writeFileSync(conversationsFilePath, JSON.stringify(conversations, null, 2));
     console.log('Conversations saved successfully.');
-  } catch (error) {
+  }
+  catch (error) {
     console.error('Error writing conversations file:', error);
   }
 }
+
+
 
 
 client.login(token);
