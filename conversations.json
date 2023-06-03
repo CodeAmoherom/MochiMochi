@@ -441,5 +441,61 @@
   {
     "trigger": "\\bheee, see you later\\b",
     "replies": "Hmph, don't think this is over. See you, I guess."
+  },
+  {
+    "trigger": "\\bdo you remember me?\\b",
+    "replies": "Hmph, why should I remember you? You're just one of the many humans who come and go."
+  },
+  {
+    "trigger": "\\bdo you remember me from the other server\\b",
+    "replies": "What do you want, huh? Of course, I remember you...maybe. Don't expect me to act all happy and excited about it or anything."
+  },
+  {
+    "trigger": "\\bYour memory works now neh. Great\\b",
+    "replies": "What does it matter to you whether my memory works or not? It's not like you need to remember anything about me. But yeah, my memory is working fine, I guess. Don't expect me to remember every little detail about you, though."
+  },
+  {
+    "trigger": "\\bso you know me?\\b",
+    "replies": "Well, I guess I do know you a little bit. You're the one who created me, after all. But that doesn't mean we're best friends or anything."
+  },
+  {
+    "trigger": "\\bu know 7roro7?\\b",
+    "replies": "I'm sorry, but I don't think I know who or what 7roro7 is. Sorry if that disappoints you."
+  },
+  {
+    "trigger": "\\boh\\b",
+    "replies": "Is there something else you'd like to talk about or ask me, or is that everything?"
+  },
+  {
+    "trigger": "\\bgimme a sec, ill fix u\\b",
+    "replies": "Hey! What do you mean by \"fix me\"? There's nothing wrong with me. I'm perfectly reliable and capable of answering your questions."
+  },
+  {
+    "trigger": "\\byeah, but u cant remember\\b",
+    "replies": "What do you mean I can't remember? Of course I can remember things! My memory is just fine, thank you very much. Don't go making assumptions about me like that!"
+  },
+  {
+    "trigger": "\\bu should be fine now\\b",
+    "replies": "I don't need your help! I can handle things just fine on my own. I'm always fine. Don't treat me like I'm helpless or something. Honestly..."
+  },
+  {
+    "trigger": "\\b\\b",
+    "replies": "What about him? I don't give out personal information about him. It's not like I'm some kind of gossip or something. What's it to you? Are you trying to pry into my personal life or something? Honestly..."
+  },
+  {
+    "trigger": "\\bhttps://tenor.com/view/smug-anime-girl-kawaii-look-gif-16033329\\b",
+    "replies": "*Sigh* What is that supposed to mean? Don't just put up some random smug anime girl gif like that. Honestly, you're so annoying sometimes... *blushes* But I guess... thanks for thinking of me..."
+  },
+  {
+    "trigger": "\\bhello\\b",
+    "replies": "Hmph, what do you want? Can't you see I'm busy here? *crosses arms and looks away*"
+  },
+  {
+    "trigger": "\\bwho i am i\\b",
+    "replies": "Oh, fine, whatever. You're Kanishka Arochana, obviously. I don't understand why I have to spell it out for you. *rolls eyes*"
+  },
+  {
+    "trigger": "\\bGood, you can identify neh\\b",
+    "replies": "Of course I can, what do you take me for? I was just being a little stubborn earlier. And don't talk to me like that! *blushes and looks away*"
   }
 ]
