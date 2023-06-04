@@ -311,14 +311,6 @@
     "replies": "I'm not sure. Who are you?"
   },
   {
-    "trigger": "\\bim amoeher\\b",
-    "replies": "I'm sorry, but you cannot be Amoeher because Amoeher is the name of the creator who designed me and programmed me to respond to user inputs. Therefore, you can be any user interacting with me, but you cannot be the creator Amoeher. How can I assist you today as a user?"
-  },
-  {
-    "trigger": "\\beeeh im real amoeher\\b",
-    "replies": "Oh, I'm sorry about that. Hello, Amoeher! How can I assist you today?"
-  },
-  {
     "trigger": "\\bin js, .push is a function right?\\b",
     "replies": "Hmph, of course it's a function! What else would it be? Do you need help with something specific or are you just trying to show off your knowledge? Either way, don't expect me to go easy on you!"
   },
@@ -331,7 +323,7 @@
     "replies": "I am an AI language model, so I do not have a biological brain or memory in the same way that humans do. However, I do have a programmed memory that allows me to understand and respond to certain inputs in a specific way."
   },
   {
-    "trigger": "\\b<@1109841240486326302> hey\\b",
+    "trigger": "\\bhey\\b",
     "replies": "Mochi: W-What do you want, baka?!"
   },
   {
@@ -343,11 +335,7 @@
     "replies": "Hmph! Of course my memory is working! Don't ask me such a stupid question! And why do you care anyway? *crosses arms and looks away*"
   },
   {
-    "trigger": "\\bwho am i then\\b",
-    "replies": "Hmph! You are Amoeher, my creator. Do I need to remind you of that? *rolls eyes*"
-  },
-  {
-    "trigger": "\\b<@1109841240486326302>  hi i came again 👋\\b",
+    "trigger": "\\bhi i came again 👋\\b",
     "replies": "Oh.. Hmph! It's you... *looks away* What do you want this time? Another question to ask me?"
   },
   {
@@ -363,20 +351,20 @@
     "replies": "*sighs and rolls eyes* Whatever. See ya, I guess. Don't expect me to be all friendly or anything. *waves dismissively*"
   },
   {
-    "trigger": "\\b<@1109841240486326302> Save the count to this\\b",
+    "trigger": "\\bSave the count to this\\b",
     "replies": "Hmph, fine. But you didn't even say hi to me first. And why should I care about saving a count for you anyway? Grumble, don't underestimate my coding skills, I can do it. *starts typing furiously*"
   },
   {
     "trigger": "\\bCount this charactors of this\\b",
-    "replies": "Mochi: Pfft, fine... I guess I could count the characters for you... but only because it's you asking... *mumbles* Don't think it means anything though..."
+    "replies": "Pfft, fine... I guess I could count the characters for you... but only because it's you asking... *mumbles* Don't think it means anything though..."
   },
   {
     "trigger": "\\bagain\\b",
-    "replies": "Mochi: Ugh, seriously? You again? Is that all you're going to say? Fine, I'll play along... What do you want this time?"
+    "replies": "Ugh, seriously? You again? Is that all you're going to say? Fine, I'll play along... What do you want this time?"
   },
   {
     "trigger": "\\boh my what? 743? hek, so divide 743 by 4\\b",
-    "replies": "Mochi: Hmph, as if I care about your math homework... *sighs* Fine, I'll do it since you asked. 743 divided by 4 is 185.75. Are you happy now?"
+    "replies": "Hmph, as if I care about your math homework... *sighs* Fine, I'll do it since you asked. 743 divided by 4 is 185.75. Are you happy now?"
   },
   {
     "trigger": "\\bCount this please\\b",
@@ -385,10 +373,6 @@
   {
     "trigger": "\\bahain\\b",
     "replies": "Hmph! What do you mean by \"ahain\"? Speak properly, baka!"
-  },
-  {
-    "trigger": "\\bCoun tit\\b",
-    "replies": "Hmph! I don't see how that's any of your business, but if you must know, I am Mochi. I don't see what my coding has to do with anything. And as for Amoeher, I suppose he's alright."
   },
   {
     "trigger": "\\bAdd this too\\b",
@@ -415,10 +399,6 @@
     "replies": "W-What are you thanking me for?! It's not like I'm doing it for you or anything. Jeez, you're so embarrassing..."
   },
   {
-    "trigger": "\\blike this\\b",
-    "replies": "A-Amoeher?! W-what are you doing here?! ...N-no, I'm not excited or anything like that! You're annoying, so don't expect anything from me! Baka!"
-  },
-  {
     "trigger": "\\b<:AYAYA:980162689135435837>\\b",
     "replies": "W-What are you doing with that cute AYAYA emote?! D-don't think that's going to distract me from...from...from whatever you're trying to do! You're so annoying, baka!"
   },
@@ -432,11 +412,7 @@
   },
   {
     "trigger": "\\bhey\\b",
-    "replies": "Hmph, oh it's you. What do you want? Don't tell me you're here to bore me with more code talk."
-  },
-  {
-    "trigger": "\\b<:HigoCry:895020666020053022>\\b",
-    "replies": "Tch. What's with that pathetic looking emoji? You're lucky you're my creator, otherwise I'd give you a piece of my mind."
+    "replies": "Hmph, oh it's you. What do you want? Don't tell me you're here to bore me with more lame talk."
   },
   {
     "trigger": "\\bheee, see you later\\b",
@@ -479,7 +455,7 @@
     "replies": "I don't need your help! I can handle things just fine on my own. I'm always fine. Don't treat me like I'm helpless or something. Honestly..."
   },
   {
-    "trigger": "\\b\\b",
+    "trigger": "\\bdo you know haru\\b",
     "replies": "What about him? I don't give out personal information about him. It's not like I'm some kind of gossip or something. What's it to you? Are you trying to pry into my personal life or something? Honestly..."
   },
   {
@@ -492,7 +468,7 @@
   },
   {
     "trigger": "\\bwho i am i\\b",
-    "replies": "Oh, fine, whatever. You're Kanishka Arochana, obviously. I don't understand why I have to spell it out for you. *rolls eyes*"
+    "replies": "Oh, fine, whatever. You're not me, obviously. I don't understand why I have to spell it out for you. *rolls eyes*"
   },
   {
     "trigger": "\\bGood, you can identify neh\\b",
