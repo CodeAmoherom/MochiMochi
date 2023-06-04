@@ -2,6 +2,14 @@
 
 MochiMochi is a fun and interactive Discord bot built with Node.js. It allows you to have conversations with Mochi, a tsundere character, and enjoy the playful interactions. The bot accepts slash commands for easy and intuitive communication.
 
+Oh yeah, Join the fun.
+## Introducing MochiMochi Preview
+   - If youre in to gaming join [Amoherom Gaming Community](https://discord.gg/C8aQu8CGXT)
+   - If youre in to studying join [Tecxick Study Group](https://discord.gg/X6xXxZCNFC)
+
+![image](https://github.com/PasanSilva99/MochiMochi/assets/58817696/79a4af3d-48a1-44ec-84e3-9392778b56b3)
+Join the fun if you like using the above links... Once I can afford, I will share a bot link
+
 ## Features
 
 - Engage in tsundere conversations with Mochi
