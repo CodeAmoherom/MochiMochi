@@ -16,6 +16,10 @@ Join the fun if you like using the above links... Once I can afford, I will shar
 - Use slash commands for seamless interaction
 - Add more conversations to `conversations.js` to expand the bot's repertoire
 
+## About the Branches
+ - main Branch - The basic version of Mochi Mochi
+ - CHatGPTIntrogation - The version of Mochi Mochi that has the gpt-3.5-turbo API from OpenAI API
+
 ## Running the Bot in Replit
 
 MochiMochi is designed to run in [Replit](https://replit.com/) for easy setup and deployment. Follow these steps to get started:
