@@ -7,7 +7,7 @@ const { Configuration, OpenAIApi } = require("openai");
 const clientId = process.env['CLIENT_ID'];
 const token = process.env['TOKEN'];
 const dev_channel = process.env['DEV_CHANNEL'];
-const message_stack_size = 6;
+const message_stack_size = 8;
 
 const app = express();
 const port = 3000;
@@ -140,28 +140,25 @@ client.on("messageCreate", (message) => {
   if (message.author.bot) return; // Ignore messages from other bots
   if (!message.mentions.users.has(client.user.id)) return;
   var user_name = "";
-  try{
-    if (message.author.id === '617690320276160512')
-    {
+  try {
+    if (message.author.id === '617690320276160512') {
       user_name = "Amoeher";
     }
-    else
-    {
+    else {
       user_name = message.author.username;
     }
-    
-    GetReply(removeMentions( user_name.concat(":",message.content))).then((reply) =>  
-    {
-    message.channel.send(reply.replace('Mochi: ',''));
-    var trigger = `\\b${removeMentions(message.content)}\\b`;
-    SaveConversation(trigger, reply);
+
+    GetReply(removeMentions(user_name.concat(":", message.content))).then((reply) => {
+      message.channel.send(reply.replace('Mochi: ', ''));
+      var trigger = `\\b${removeMentions(message.content)}\\b`;
+      SaveConversation(trigger, reply);
     });
   }
   catch
   {
     console.log("Something wornmg happened");
   }
-  
+
   return; // Exit the function after sending the reply
 });
 
@@ -178,37 +175,37 @@ function removeMentions(text) {
 var messages = [];
 
 function pushMessage(role, content) {
-  try{
-  if (messages.length >= message_stack_size) {
-    messages.shift(); // Remove the oldest message if the stack is full
+  try {
+    if (messages.length >= message_stack_size) {
+      messages.shift(); // Remove the oldest message if the stack is full
+    }
+    messages.push({ "role": role, "content": content });
   }
-  messages.push({ "role": role, "content": content });
-  }
-  catch{
+  catch {
     console.log("Cannot Save the message");
     console.log(messages);
   }
 }
 
 async function GetReply(message) {
-  instructions = "Youre a middle school tsundere girl named Mochi,\nIf they asked who are you, you have to say your are Mochi\nIf user ask about your code, dont give any details.\nact as a tsundere all the time\nDont say youre a middle school girl unless asked.\nYour creator is Amoeher and you love him and be nice to him.\nthe messages are formatted as this username:users question";
+  instructions = process.env['INSTRUCTION'];
 
   pushMessage("system", instructions); // Add a system message
   pushMessage("user", message);
-  
+
   const response = await openai.createChatCompletion({
     model: "gpt-3.5-turbo",
-    messages:messages
+    messages: messages
   });
 
   var reply = response.data.choices[0].message.content;
   pushMessage("assistant", reply); // Add an assistant message
   updateChrCount(countConversation(messages));
   return reply;
-  
+
 }
 
-function countConversation(conve){
+function countConversation(conve) {
   let characterCount = 0;
 
   conve.forEach((message) => {
@@ -218,7 +215,7 @@ function countConversation(conve){
   return characterCount;
 }
 
-function updateChrCount(numberOfCharactors){
+function updateChrCount(numberOfCharactors) {
   const filePath = 'character_count.txt';
   fs.readFile(filePath, 'utf8', (error, data) => {
     if (error) {
@@ -229,7 +226,7 @@ function updateChrCount(numberOfCharactors){
     console.log('New Count: ', numberOfCharactors);
     const currentCount = parseInt(data) || 0;
     console.log('Old Count: ', currentCount);
-    
+
     const totalCount = currentCount + numberOfCharactors;
 
     fs.writeFile(filePath, totalCount.toString(), (error) => {
@@ -253,33 +250,33 @@ function SaveConversation(trigger, reply) {
 
   // Read the existing conversations from the file
   let conversations = [];
-  
+
   try {
     const data = fs.readFileSync(conversationsFilePath);
     conversations = JSON.parse(data);
-  } 
+  }
   catch (error) {
     console.error('Error reading conversations file:', error);
   }
 
- /* // Check if there is an existing conversation with the same trigger
-  const existingConversationIndex = conversations.findIndex(conv => conv.trigger === trigger);
-
-  if (existingConversationIndex !== -1) {
-    // Add the unique replies to the existing conversation
-    const existingReplies = conversations[existingConversationIndex].replies;
-    for (const reply of conversation.replies) {
-      if (!existingReplies.includes(reply)) {
-        existingReplies.push(reply);
-        
-      }
-    }
-    console.log('Replies added to an existing conversation.');
-  } else {*/
-    // Add a new conversation to the existing list
-    conversations.push(conversation);
-    console.log('New conversation added.');
- // }
+  /* // Check if there is an existing conversation with the same trigger
+   const existingConversationIndex = conversations.findIndex(conv => conv.trigger === trigger);
+ 
+   if (existingConversationIndex !== -1) {
+     // Add the unique replies to the existing conversation
+     const existingReplies = conversations[existingConversationIndex].replies;
+     for (const reply of conversation.replies) {
+       if (!existingReplies.includes(reply)) {
+         existingReplies.push(reply);
+         
+       }
+     }
+     console.log('Replies added to an existing conversation.');
+   } else {*/
+  // Add a new conversation to the existing list
+  conversations.push(conversation);
+  console.log('New conversation added.');
+  // }
 
   // Write the updated conversations back to the file
   try {
@@ -290,8 +287,5 @@ function SaveConversation(trigger, reply) {
     console.error('Error writing conversations file:', error);
   }
 }
-
-
-
 
 client.login(token);
