@@ -1,12 +1,21 @@
 const { REST, Routes, Client, Collection, Events, GatewayIntentBits, SlashCommanhttps: dBuilder } = require('discord.js');
 const fs = require('node:fs');
 const path = require('node:path');
+const express = require('express');
+const { Configuration, OpenAIApi } = require("openai");
+
 const clientId = process.env['CLIENT_ID'];
 const token = process.env['TOKEN'];
 const dev_channel = process.env['DEV_CHANNEL'];
-const express = require('express');
+const message_stack_size = 8;
+
 const app = express();
 const port = 3000;
+
+const configuration = new Configuration({
+  apiKey: process.env['OPENAI_API_KEY'],
+});
+const openai = new OpenAIApi(configuration);
 
 // Middleware to serve static files
 app.use(express.static('public'));
@@ -128,37 +137,31 @@ client.on(Events.InteractionCreate, async interaction => {
 
 client.on("messageCreate", (message) => {
 
-  // Read conversations from JSON file
-  const rawdata = fs.readFileSync('conversations.json');
-  const conversations = JSON.parse(rawdata);
-
   if (message.author.bot) return; // Ignore messages from other bots
   if (!message.mentions.users.has(client.user.id)) return;
-
-  // Define the tsundere replies
-  const tsundereReplies = [
-    "Hmph! Why are you bothering me?",
-    "Yes, what is it now? I hope you're not getting too comfortable with me.",
-    "Ugh, what is it now? Don't get too used to calling my name like that.",
-    "Hmph, hello. What do you want?",
-  ];
-
-  // Check the message content for specific conversations
-  for (const convo of conversations) {
-    const msg = removeMentions(message.content.toLowerCase());
-    const regex = new RegExp(convo.trigger, 'i');
-    if (regex.test(msg)) {
-      const randomReply = convo.replies[Math.floor(Math.random() * convo.replies.length)];
-      message.channel.send(randomReply);
-      return; // Exit the function after sending the reply
+  var user_name = "";
+  try {
+    if (message.author.id === '617690320276160512') {
+      user_name = "Amoeher";
     }
+    else {
+      user_name = message.author.username;
+    }
+
+    GetReply(removeMentions(user_name.concat(":", message.content))).then((reply) => {
+      message.channel.send(reply.replace('Mochi: ', ''));
+      var trigger = `\\b${removeMentions(message.content)}\\b`;
+      SaveConversation(trigger, reply);
+    });
+  }
+  catch
+  {
+    console.log("Something wornmg happened");
   }
 
-  // If no specific conversation is matched, send a random tsundere reply
-  const randomReply = tsundereReplies[Math.floor(Math.random() * tsundereReplies.length)];
-  message.channel.send(randomReply);
-
+  return; // Exit the function after sending the reply
 });
+
 
 function removeLeadingSpaces(str) {
   return str.replace(/^\s+/, '');
@@ -167,6 +170,122 @@ function removeLeadingSpaces(str) {
 function removeMentions(text) {
   const regex = /<@.*?>/g;
   return removeLeadingSpaces(text.replace(regex, ''));
+}
+
+var messages = [];
+
+function pushMessage(role, content) {
+  try {
+    if (messages.length >= message_stack_size) {
+      messages.shift(); // Remove the oldest message if the stack is full
+    }
+    messages.push({ "role": role, "content": content });
+  }
+  catch {
+    console.log("Cannot Save the message");
+    console.log(messages);
+  }
+}
+
+async function GetReply(message) {
+  instructions = process.env['INSTRUCTION'];
+
+  pushMessage("system", instructions); // Add a system message
+  pushMessage("user", message);
+
+  const response = await openai.createChatCompletion({
+    model: "gpt-3.5-turbo",
+    messages: messages
+  });
+
+  var reply = response.data.choices[0].message.content;
+  pushMessage("assistant", reply); // Add an assistant message
+  updateChrCount(countConversation(messages));
+  return reply;
+
+}
+
+function countConversation(conve) {
+  let characterCount = 0;
+
+  conve.forEach((message) => {
+    characterCount += message.content.length;
+  });
+
+  return characterCount;
+}
+
+function updateChrCount(numberOfCharactors) {
+  const filePath = 'character_count.txt';
+  fs.readFile(filePath, 'utf8', (error, data) => {
+    if (error) {
+      console.error('Failed to read character count file:', error);
+      return;
+    }
+
+    console.log('New Count: ', numberOfCharactors);
+    const currentCount = parseInt(data) || 0;
+    console.log('Old Count: ', currentCount);
+
+    const totalCount = currentCount + numberOfCharactors;
+
+    fs.writeFile(filePath, totalCount.toString(), (error) => {
+      if (error) {
+        console.error('Failed to update character count file:', error);
+      } else {
+        console.log('Character count updated:', totalCount);
+      }
+    });
+  });
+}
+
+function SaveConversation(trigger, reply) {
+  console.log("Saving Conversation");
+  const conversation = {
+    trigger,
+    replies: reply.trim()
+  };
+
+  const conversationsFilePath = path.join(__dirname, 'conversations.json');
+
+  // Read the existing conversations from the file
+  let conversations = [];
+
+  try {
+    const data = fs.readFileSync(conversationsFilePath);
+    conversations = JSON.parse(data);
+  }
+  catch (error) {
+    console.error('Error reading conversations file:', error);
+  }
+
+  /* // Check if there is an existing conversation with the same trigger
+   const existingConversationIndex = conversations.findIndex(conv => conv.trigger === trigger);
+ 
+   if (existingConversationIndex !== -1) {
+     // Add the unique replies to the existing conversation
+     const existingReplies = conversations[existingConversationIndex].replies;
+     for (const reply of conversation.replies) {
+       if (!existingReplies.includes(reply)) {
+         existingReplies.push(reply);
+         
+       }
+     }
+     console.log('Replies added to an existing conversation.');
+   } else {*/
+  // Add a new conversation to the existing list
+  conversations.push(conversation);
+  console.log('New conversation added.');
+  // }
+
+  // Write the updated conversations back to the file
+  try {
+    fs.writeFileSync(conversationsFilePath, JSON.stringify(conversations, null, 2));
+    console.log('Conversations saved successfully.');
+  }
+  catch (error) {
+    console.error('Error writing conversations file:', error);
+  }
 }
 
 client.login(token);
