@@ -19,7 +19,7 @@ const openai = new OpenAIApi(configuration);
 
 // Middleware to serve static files
 app.use(express.static('public'));
-
+// kanishla
 // Set up a route to handle the root URL
 app.get('/', (req, res) => {
   res.send(`
