@@ -150,7 +150,7 @@ client.on("messageCreate", (message) => {
 
     GetReply(removeMentions(user_name.concat(":", message.content))).then((reply) => {
       message.channel.send(reply.replace('Mochi: ', ''));
-      var trigger = `\\b${removeMentions(message.content)}\\b`;
+      var trigger = removeMentions(message.content);
       SaveConversation(trigger, reply);
     });
   }
@@ -225,7 +225,7 @@ function updateChrCount(numberOfCharactors) {
 
     console.log('New Count: ', numberOfCharactors);
     const currentCount = parseInt(data) || 0;
-    console.log('Old Count: ', currentCount);
+    //console.log('Old Count: ', currentCount);
 
     const totalCount = currentCount + numberOfCharactors;
 
@@ -233,7 +233,7 @@ function updateChrCount(numberOfCharactors) {
       if (error) {
         console.error('Failed to update character count file:', error);
       } else {
-        console.log('Character count updated:', totalCount);
+        //console.log('Character count updated:', totalCount);
       }
     });
   });
@@ -241,51 +241,34 @@ function updateChrCount(numberOfCharactors) {
 
 function SaveConversation(trigger, reply) {
   console.log("Saving Conversation");
-  const conversation = {
-    trigger,
-    replies: reply.trim()
-  };
 
-  const conversationsFilePath = path.join(__dirname, 'conversations.json');
+  let conversation = `user: ${trigger}\nai: ${reply}\n`;
+  console.log(conversation);
+  const conversationsFilePath = path.join(__dirname, 'conversations.txt');
 
   // Read the existing conversations from the file
-  let conversations = [];
+  let conversations = "";
 
   try {
-    const data = fs.readFileSync(conversationsFilePath);
-    conversations = JSON.parse(data);
+    conversations = fs.readFileSync(conversationsFilePath);
   }
   catch (error) {
     console.error('Error reading conversations file:', error);
   }
 
-  /* // Check if there is an existing conversation with the same trigger
-   const existingConversationIndex = conversations.findIndex(conv => conv.trigger === trigger);
- 
-   if (existingConversationIndex !== -1) {
-     // Add the unique replies to the existing conversation
-     const existingReplies = conversations[existingConversationIndex].replies;
-     for (const reply of conversation.replies) {
-       if (!existingReplies.includes(reply)) {
-         existingReplies.push(reply);
-         
-       }
-     }
-     console.log('Replies added to an existing conversation.');
-   } else {*/
-  // Add a new conversation to the existing list
-  conversations.push(conversation);
+  conversations = conversations + conversation;
   console.log('New conversation added.');
   // }
 
   // Write the updated conversations back to the file
   try {
-    fs.writeFileSync(conversationsFilePath, JSON.stringify(conversations, null, 2));
+    fs.writeFileSync(conversationsFilePath, conversations);
     console.log('Conversations saved successfully.');
   }
   catch (error) {
     console.error('Error writing conversations file:', error);
   }
 }
+
 
 client.login(token);
