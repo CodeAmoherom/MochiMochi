@@ -1,6 +1,8 @@
-const { REST, Routes, Client, Collection, Events, GatewayIntentBits, SlashCommanhttps: dBuilder } = require('discord.js');
 const fs = require('node:fs');
 const path = require('node:path');
+
+const { REST, Routes, Client, Collection, Events, GatewayIntentBits, SlashCommanhttps: dBuilder } = require('discord.js');
+
 const express = require('express');
 const { Configuration, OpenAIApi } = require("openai");
 
@@ -139,37 +141,128 @@ client.on("messageCreate", (message) => {
 
   if (message.author.bot) return; // Ignore messages from other bots
   if (!message.mentions.users.has(client.user.id)) return;
-  var user_name = "";
-  try {
+
+  let isAmoeher = false
+
     if (message.author.id === '617690320276160512') {
-      user_name = "Amoeher";
+      isAmoeher=true;
     }
     else {
-      user_name = message.author.username;
+      isAmoeher=false;
     }
 
-    GetReply(removeMentions(user_name.concat(":", message.content))).then((reply) => {
-      message.channel.send(reply.replace('Mochi: ', ''));
-      var trigger = `\\b${removeMentions(message.content)}\\b`;
-      SaveConversation(trigger, reply);
+    GetReply(JSON.stringify(generateMessageObject(message, isAmoeher))).then((reply) => {
+      markMentions(message);
+      message.reply(mentionAmoeher(reply));
+      var anoUser = anonymizeQuestion(message);
+      var anoReply = anonymizeReply(reply, message);
+      SaveConversation(anoUser, anoReply);
     });
-  }
-  catch
-  {
-    console.log("Something wornmg happened");
-  }
 
   return; // Exit the function after sending the reply
 });
 
+function mentionAmoeher(message){
+  let updatedMessage = message.replace('@[Amoeher]', ' <@617690320276160512> ');
+  let rew2 = updatedMessage.replace('@Amoeher', ' <@617690320276160512> ');
+  return rew2.replace('@amoeher', ' <@617690320276160512> ');
+}
+
+function generateMessageObject(messageResponce, isAmoeher){
+  let message = {};
+  message = {
+    "isAmoeher": isAmoeher,
+    "Sender": messageResponce.author.username,
+    "Message": markMentions(messageResponce),
+    "Guild": messageResponce.guild.name,
+    "UsersTime": convertToGMT530(messageResponce.createdAt)
+  }
+  //console.log(message);
+  return message;
+}
 
 function removeLeadingSpaces(str) {
   return str.replace(/^\s+/, '');
 }
 
-function removeMentions(text) {
+function anonymizeReply(reply, message) {
+  let mentonedUsers = message.mentions.users;
+  let users = [];
+  for (const user of mentonedUsers) {
+    let username = "";
+    if (user[1].username === "amoeher") {
+      username = "creators_name";
+    }
+    else if (user[1].username === "MochiMochi") {
+      username = "ai_name"
+    }
+    else {
+      username = "username";
+    }
+    users.push(
+      {
+        "id": user[1].id,
+        "name": username
+      });
+
+  }
   const regex = /<@.*?>/g;
-  return removeLeadingSpaces(text.replace(regex, ''));
+  const updatedMessage = reply.replace(regex, matchedId => {
+    const matchedUser = users.find(user => user.id === matchedId.substring(2, matchedId.length - 1));
+    return matchedUser ? matchedUser.name : matchedId;
+  });
+
+  return updatedMessage;
+}
+
+function anonymizeQuestion(message) {
+  let mentonedUsers = message.mentions.users;
+  let users = [];
+  for (const user of mentonedUsers) {
+    let username = "";
+    if (user[1].username === "amoeher") {
+      username = "creators_name";
+    }
+    else if (user[1].username === "MochiMochi") {
+      username = "ai_name"
+    }
+    else {
+      username = "username";
+    }
+    users.push(
+      {
+        "id": user[1].id,
+        "name": username
+      });
+
+  }
+  const regex = /<@.*?>/g;
+  const updatedMessage = message.content.replace(regex, matchedId => {
+    const matchedUser = users.find(user => user.id === matchedId.substring(2, matchedId.length - 1));
+    return matchedUser ? matchedUser.name : matchedId;
+  });
+
+  return updatedMessage.replace('Mochi', 'ai_name');
+}
+
+function markMentions(message) {
+  let mentonedUsers = message.mentions.users;
+  let users = [];
+  for (const user of mentonedUsers) {
+    users.push(
+      {
+        "id": user[1].id,
+        "name": user[1].username
+      });
+
+  }
+  const regex = /<@.*?>/g;
+  const updatedMessage = message.content.replace(regex, matchedId => {
+    const matchedUser = users.find(user => user.id === matchedId.substring(2, matchedId.length - 1));
+    return matchedUser ? matchedUser.name : matchedId;
+  });
+
+  return updatedMessage;
 }
 
 var messages = [];
@@ -183,16 +276,18 @@ function pushMessage(role, content) {
   }
   catch {
     console.log("Cannot Save the message");
-    console.log(messages);
+    
   }
 }
 
 async function GetReply(message) {
+
+  try{
   instructions = process.env['INSTRUCTION'];
 
   pushMessage("system", instructions); // Add a system message
   pushMessage("user", message);
-
+  console.log(messages);
   const response = await openai.createChatCompletion({
     model: "gpt-3.5-turbo",
     messages: messages
@@ -202,7 +297,12 @@ async function GetReply(message) {
   pushMessage("assistant", reply); // Add an assistant message
   updateChrCount(countConversation(messages));
   return reply;
-
+  }
+  catch{
+    return "bla bla bla";
+  }
+  
+  //return "bla bla bla";
 }
 
 function countConversation(conve) {
@@ -223,9 +323,9 @@ function updateChrCount(numberOfCharactors) {
       return;
     }
 
-    console.log('New Count: ', numberOfCharactors);
+    //console.log('New Count: ', numberOfCharactors);
     const currentCount = parseInt(data) || 0;
-    console.log('Old Count: ', currentCount);
+    //console.log('Old Count: ', currentCount);
 
     const totalCount = currentCount + numberOfCharactors;
 
@@ -233,54 +333,39 @@ function updateChrCount(numberOfCharactors) {
       if (error) {
         console.error('Failed to update character count file:', error);
       } else {
-        console.log('Character count updated:', totalCount);
+        //console.log('Character count updated:', totalCount);
       }
     });
   });
 }
 
+///Saves the Conversation to a file
+/// trigger - 
+/// reply - 
 function SaveConversation(trigger, reply) {
   console.log("Saving Conversation");
-  const conversation = {
-    trigger,
-    replies: reply.trim()
-  };
 
-  const conversationsFilePath = path.join(__dirname, 'conversations.json');
+  let conversation = `user: ${trigger}\nai: ${reply}\n`;
+  //console.log(conversation);
+  const conversationsFilePath = path.join(__dirname, 'conversations.txt');
 
   // Read the existing conversations from the file
-  let conversations = [];
+  let conversations = "";
 
   try {
-    const data = fs.readFileSync(conversationsFilePath);
-    conversations = JSON.parse(data);
+    conversations = fs.readFileSync(conversationsFilePath);
   }
   catch (error) {
     console.error('Error reading conversations file:', error);
   }
 
-  /* // Check if there is an existing conversation with the same trigger
-   const existingConversationIndex = conversations.findIndex(conv => conv.trigger === trigger);
- 
-   if (existingConversationIndex !== -1) {
-     // Add the unique replies to the existing conversation
-     const existingReplies = conversations[existingConversationIndex].replies;
-     for (const reply of conversation.replies) {
-       if (!existingReplies.includes(reply)) {
-         existingReplies.push(reply);
-         
-       }
-     }
-     console.log('Replies added to an existing conversation.');
-   } else {*/
-  // Add a new conversation to the existing list
-  conversations.push(conversation);
+  conversations = conversations + conversation;
   console.log('New conversation added.');
   // }
 
   // Write the updated conversations back to the file
   try {
-    fs.writeFileSync(conversationsFilePath, JSON.stringify(conversations, null, 2));
+    fs.writeFileSync(conversationsFilePath, conversations);
     console.log('Conversations saved successfully.');
   }
   catch (error) {
@@ -288,4 +373,33 @@ function SaveConversation(trigger, reply) {
   }
 }
 
+function sendMessage(message){
+  const channel = client.channels.cache.get(dev_channel);
+  channel.send(`${message}`);
+}
+
+function convertToGMT530(datetime){
+  const gmtTimezoneOffset = 5.5 * 60 * 60; // GMT+5:30 in milliseconds
+  const serverUtcTime = new Date();
+  const desiredTime = new Date(serverUtcTime.getTime() + (gmtTimezoneOffset * 1000));
+  return desiredTime;
+}
+
+function scheduleMessage(hour, minute, message) {
+  const serverUtcTime = new Date().getTime();
+
+  // Calculate the desired GMT+5:30 time
+  const gmtTimezoneOffset = 5.5 * 60 * 60 * 1000; // GMT+5:30 in milliseconds
+  const desiredTime = new Date(serverUtcTime + gmtTimezoneOffset);
+  desiredTime.setUTCHours(hour, minute, 0, 0);
+
+  const timeDifference = desiredTime - new Date();
+  console.log(timeDifference)
+  setTimeout(() => {
+    sendMessage(message);
+  }, timeDifference);
+}
+
+// Example usage: Schedule a message to be sent at GMT+5:30 11:12 PM
+scheduleMessage(23, 17, 'Hello, world!');
 client.login(token);
