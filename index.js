@@ -1,10 +1,25 @@
+// Requre the dotenv for Secrets
+require('dotenv').config();
+
 const fs = require('node:fs');
 const path = require('node:path');
 
 const { REST, Routes, Client, Collection, Events, GatewayIntentBits, SlashCommanhttps: dBuilder } = require('discord.js');
 
 const express = require('express');
-const { Configuration, OpenAIApi } = require("openai");
+
+const CharacterAI = require("node_characterai");
+const characterAI = new CharacterAI();
+
+// Place your character's id here
+const characterId = "R3Z7Z0uVBTcaDcpffuJUlS_cAAOmDg9PXsubvD0nURo";
+
+(async () => {
+  await characterAI.authenticateWithToken(process.env['CHAR_TOKEN']);
+})();
+
+
+
 
 const clientId = process.env['CLIENT_ID'];
 const token = process.env['TOKEN'];
@@ -13,11 +28,6 @@ const message_stack_size = 8;
 
 const app = express();
 const port = 3000;
-
-const configuration = new Configuration({
-  apiKey: process.env['OPENAI_API_KEY'],
-});
-const openai = new OpenAIApi(configuration);
 
 // Middleware to serve static files
 app.use(express.static('public'));
@@ -144,31 +154,31 @@ client.on("messageCreate", (message) => {
 
   let isAmoeher = false
 
-    if (message.author.id === '617690320276160512') {
-      isAmoeher=true;
-    }
-    else {
-      isAmoeher=false;
-    }
+  if (message.author.id === '617690320276160512') {
+    isAmoeher = true;
+  }
+  else {
+    isAmoeher = false;
+  }
 
-    GetReply(JSON.stringify(generateMessageObject(message, isAmoeher))).then((reply) => {
-      markMentions(message);
-      message.reply(mentionAmoeher(reply));
-      var anoUser = anonymizeQuestion(message);
-      var anoReply = anonymizeReply(reply, message);
-      SaveConversation(anoUser, anoReply);
-    });
+  GetReply(JSON.stringify(generateMessageObject(message, isAmoeher))).then((reply) => {
+    markMentions(message);
+    message.reply(mentionAmoeher(reply));
+    var anoUser = anonymizeQuestion(message);
+    var anoReply = anonymizeReply(reply, message);
+    SaveConversation(anoUser, anoReply);
+  });
 
   return; // Exit the function after sending the reply
 });
 
-function mentionAmoeher(message){
+function mentionAmoeher(message) {
   let updatedMessage = message.replace('@[Amoeher]', ' <@617690320276160512> ');
   let rew2 = updatedMessage.replace('@Amoeher', ' <@617690320276160512> ');
   return rew2.replace('@amoeher', ' <@617690320276160512> ');
 }
 
-function generateMessageObject(messageResponce, isAmoeher){
+function generateMessageObject(messageResponce, isAmoeher) {
   let message = {};
   message = {
     "isAmoeher": isAmoeher,
@@ -276,32 +286,37 @@ function pushMessage(role, content) {
   }
   catch {
     console.log("Cannot Save the message");
-    
+
   }
 }
 
 async function GetReply(message) {
 
-  try{
-  instructions = process.env['INSTRUCTION'];
+  try {
+    // instructions = process.env['INSTRUCTION'];
 
-  pushMessage("system", instructions); // Add a system message
-  pushMessage("user", message);
-  console.log(messages);
-  const response = await openai.createChatCompletion({
-    model: "gpt-3.5-turbo",
-    messages: messages
-  });
+    // pushMessage("system", instructions); // Add a system message
+    pushMessage("user", message);
+    console.log(messages);
+    // const response = await openai.createChatCompletion({
+    //   model: "gpt-3.5-turbo",
+    //   messages: messages
+    // });
 
-  var reply = response.data.choices[0].message.content;
-  pushMessage("assistant", reply); // Add an assistant message
-  updateChrCount(countConversation(messages));
-  return reply;
+    // Send a message
+    
+    const chat = await characterAI.createOrContinueChat(characterId);
+    // await chat.saveAndStartNewChat();
+    const response = await chat.sendAndAwaitResponse(message, true);
+
+    var reply = response.text;
+    pushMessage("assistant", reply); // Add an assistant message
+    return reply;
   }
-  catch{
-    return "bla bla bla";
+  catch (error){
+    return "bla bla bla " + error;
   }
-  
+
   //return "bla bla bla";
 }
 
@@ -373,12 +388,12 @@ function SaveConversation(trigger, reply) {
   }
 }
 
-function sendMessage(message){
+function sendMessage(message) {
   const channel = client.channels.cache.get(dev_channel);
   channel.send(`${message}`);
 }
 
-function convertToGMT530(datetime){
+function convertToGMT530(datetime) {
   const gmtTimezoneOffset = 5.5 * 60 * 60; // GMT+5:30 in milliseconds
   const serverUtcTime = new Date();
   const desiredTime = new Date(serverUtcTime.getTime() + (gmtTimezoneOffset * 1000));
