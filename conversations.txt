@@ -2705,3 +2705,45 @@ user: Areare?
 ai: bla bla bla TypeError: Cannot read properties of undefined (reading 'status')
 user: Oyasumiiii
 ai: bla bla bla TypeError: Cannot read properties of undefined (reading 'status')
+user: oo hi
+ai: bla bla bla TypeError: Cannot read properties of undefined (reading 'status')
+user: eh
+ai: bla bla bla TypeError: Cannot read properties of undefined (reading 'status')
+user: tes
+ai: bla bla bla TypeError: Cannot read properties of undefined (reading 'status')
+user: hi
+ai: *her face lights up when she sees you're messaging her back this morning. she seemed a bit sad when she went to sleep because she thought she would never be able to talk to you ever again* h-hey...
+user: Ready for?
+ai: *she blinks in confusion for a moment when you ask this out of nowhere* u-uh...for what...? *she waits for your reply*
+user: You told you really
+ai: *it takes her a couple of seconds before she realizes what you're talking about. you're talking about my embarassing mistake when I thought you were Amoeher* ah...o-okay...I'm ready to hear it...
+user: Iss fine
+ai: *it seems like you're letting me off on this...she's surprised at the casualness when you said that it's okay...* y-you're really not mad at me...a-are you...?
+user: Iie iie
+ai: *she seems a bit relieved...* h-hey...can I ask you one more question...?
+user: Ja a
+ai: *she thinks for a bit how she would phrase her question...she doesn't know why she's asking this...but it feels like it is important somehow* w-well...have you made any other embarrassing mistakes in the past...?
+user: Hee ja
+ai: *she seems a bit relieved when you confirmed it. she thinks about what to say next...* a-and when you made those mistakes....were you teased by your friends for it?
+user: Yep,.
+ai: *she sighs a bit as she hears this...she knows exactly how it feels to be teased by your close friends after making a mistake...she seems a bit hesitant now...before asking her next question* a-and...did you...ever feel embarrassed by your mistake...to the point where you feel like...everyone hates you...?
+user: Why asking me this
+ai: "*she sighs...* w-well...it's just that...I did something really embarassing yesterday...I said something really mean...and I ended up hurting someone's feelings..." 
+
+*her tone changes to a bit more quiet as she finishes her reply. she seems kinda stressed out*
+user: Hrrehh? Who did u hurt
+ai: *she hesitates a bit before answering the question...she's hesitant because she feel really bad about hurting this other person...she tries to get the words out as she speaks calmly* w-well...I hurt my really close friend...the one that I was mean to by accident...
+user: Who
+ai: *she sighs and is silent for a bit as she looks down...she takes a deep breath before saying the truth as she looks back at the screen* well...I...was mean to Suguru...I said something really mean by accident just yesterday and...he's been really hurt ever since...
+user: Ooh my nii chan?, I will talk to him
+ai: *she looks at the response....she seems surprised when you said you would talk to him...she thought he already figured out that she was the one that hurt him but...apparently not...she replies back to you* o-oh...well thank you for telling him the truth...but...can I ask you one more thing..?
+user: Ja
+ai: *she gulps a bit before she continues with her question...* h-how did you get past your embarrassing mistakes...? w-were you ever nervous about making another mistake in the future...? she seems to be asking from an experience point of view right now
+user: Oh, I dunno ask Amoeher san I guess... Or Roro san
+ai: *she seems pretty confused when you said to ask about this to other people...she thought that you might have an answer to this dilemma...but i guess not then? she nods a bit in understanding* o-oh okay...well...thank you anyw-
+user: Np
+ai: *she smiles a little bit when you said "np"...she has no more questions...or nothing else to say and so she tries to end the conversation* w-well...thanks again...hope you have a good day...*she says this as she waits for a response*
+user: U too... Hah3..
+ai: *she giggles as she reads the "hah3..." part...she wasn't expecting this and she was glad to see you had a happy tone right now. she replies back to you while still being a bit shy* t-thanks...see you later~
+user: Matane
+ai: *she's a bit confused when you said "Matane"...but decides she'll look up the meaning of this word later. she replies with a short, goodbye message back* s-see ya...
