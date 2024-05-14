@@ -9,6 +9,8 @@ const { joinVoiceChannel, VoiceConnectionStatus, entersState } = require('@disco
 
 const express = require('express');
 
+const { getContinuousStatus } = require('./globals');
+
 const CharacterAI = require("node_characterai");
 const { channel } = require('node:diagnostics_channel');
 const characterAI = new CharacterAI();
@@ -26,6 +28,7 @@ const characterId = "R3Z7Z0uVBTcaDcpffuJUlS_cAAOmDg9PXsubvD0nURo";
 const clientId = process.env['CLIENT_ID'];
 const token = process.env['TOKEN'];
 const dev_channel = process.env['DEV_CHANNEL'];
+const dev_guild = process.env['DEV_GUILD_ID'];
 const message_stack_size = 8;
 
 const app = express();
@@ -108,7 +111,7 @@ for (const file of commandFiles) {
 
 		// The put method is used to fully refresh all commands in the guild with the current set
 		const data = await rest.put(
-			Routes.applicationCommands(clientId),
+			Routes.applicationGuildCommands(clientId, dev_guild),
 			{ body: commands },
 		);
 
@@ -150,11 +153,15 @@ client.on(Events.InteractionCreate, async interaction => {
 });
 
 
+
 client.on("messageCreate", async (message) => {
 
 	try {
 		if (message.author.bot) return; // Ignore messages from other bots
-		if (!message.mentions.users.has(client.user.id)) return;
+		var isContinuous = getContinuousStatus();
+		if (!message.mentions.users.has(client.user.id)) {
+			if (!isContinuous) return;
+		}
 
 		let isAmoeher = false
 
@@ -267,12 +274,12 @@ function mentionAmoeher(message) {
 function generateMessageObject(messageResponce, isAmoeher) {
 	let message = {};
 	message = {
+		"isAmoeher":isAmoeher,
 		"MessageFrom": "Discord",
 		"Sender": messageResponce.author.username,
 		"Message": markMentions(messageResponce),
 		"Group": messageResponce.guild.name,
 		"UsersTime": convertToGMT530(messageResponce.createdAt),
-		"More instrauctions": "if you think the message is not for you, reply with '_'. Remember to check the sender",
 	}
 	console.log(message);
 	return message;
