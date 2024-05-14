@@ -1,3 +1,6 @@
+! this readme is not updated, i will update it soon. contact me if u have any questins
+also this made possible thanks to realcolorides https://github.com/realcoloride/node_characterai/ .
+
 # <img src='https://github.com/PasanSilva99/MochiMochi/assets/58817696/2112f06b-32ec-43cf-8465-a7522d2993c5' width=35 height=35> MochiMochi Discord Bot
 
 MochiMochi is a fun and interactive Discord bot built with Node.js. It allows you to have conversations with Mochi, a tsundere character, and enjoy the playful interactions. The bot accepts slash commands for easy and intuitive communication.
@@ -14,7 +17,6 @@ Join the fun if you like using the above links... Once I can afford, I will shar
 
 - Engage in tsundere conversations with Mochi
 - Use slash commands for seamless interaction
-- Add more conversations to `conversations.js` to expand the bot's repertoire
 
 ## About the Branches
  - main Branch - The basic version of Mochi Mochi
@@ -30,8 +32,7 @@ MochiMochi is designed to run in [Replit](https://replit.com/) for easy setup an
       a. CLIENT_ID - Your Discord Application Client ID<br>
       b. TOKEN - Discord Bot Token<br>
       c. DEV_CHANNEL - The channel id that receives errors and login status.<br>
-3. Customize the bot's conversations in the `conversations.js` file.
-4. Start the bot by clicking the RUN on Replit.
+3. Start the bot by 'npm start'.
 
 ### MochiMochi with OpenAI API
 1. Import the project into your Replit workspace.
